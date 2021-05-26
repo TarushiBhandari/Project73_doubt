@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {View,Text,StyleSheet,Image,TextInput,TouchableOpacity} from 'react-native';
+import db from '../config';
+import firebase from 'firebase';
 
 export default class WriteStoryScreen extends React.Component{
 
@@ -20,6 +22,15 @@ export default class WriteStoryScreen extends React.Component{
             story: ''
         })
     }
+
+    
+  submitStory= async()=>{
+    db.collection("stories").add({
+      'title':this.state.title,
+      'author': this.state.author,
+      'story': this.state.story
+   });
+  }
     render(){
         return(
         <View>
@@ -53,6 +64,7 @@ export default class WriteStoryScreen extends React.Component{
                 multiline={true}
                 style={styles.storyBox}
                 onChangeText={(text) => this.setState({ story: text })}
+                value={this.state.story}
                 />
 
                 <TouchableOpacity 
@@ -61,7 +73,10 @@ export default class WriteStoryScreen extends React.Component{
                     this.buttonPressed
                 }
                 >
-                    <Text style={styles.text}>SUBMIT STORY</Text>
+                    <Text 
+                    style={styles.text}
+                    onPress={this.submitStory}
+                    >SUBMIT STORY</Text>
                 </TouchableOpacity>
             </View>
             

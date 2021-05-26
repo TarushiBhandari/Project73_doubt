@@ -8,6 +8,7 @@ import WriteStoryScreen from './screens/WriteStory';
 import AppHeader from './AppHeader';
 
 export default class App extends React.Component{
+
   render(){
   return (
       
